@@ -15,7 +15,10 @@ public class PeopleOcclusion : MonoBehaviour
     
     [SerializeField] 
     private ARHumanBodyManager m_humanBodyManager = null;
-    
+
+    [SerializeField]
+    private AROcclusionManager m_aROcclusionManager = null;
+
     [SerializeField] 
     private ARCameraManager m_cameraManager = null;
     
@@ -86,8 +89,12 @@ public class PeopleOcclusion : MonoBehaviour
                 m_material.SetInt("_ONWIDE", 0);
             }
 
-            m_material.SetTexture("_OcclusionDepth", m_humanBodyManager.humanDepthTexture);
-            m_material.SetTexture("_OcclusionStencil", m_humanBodyManager.humanStencilTexture);
+            //m_material.SetTexture("_OcclusionDepth", m_humanBodyManager.humanDepthTexture);
+            //m_material.SetTexture("_OcclusionStencil", m_humanBodyManager.humanStencilTexture);
+
+            m_material.SetTexture("_OcclusionDepth", m_aROcclusionManager.humanDepthTexture);
+            m_material.SetTexture("_OcclusionStencil", m_aROcclusionManager.humanStencilTexture);
+
             Graphics.Blit(source, destination, m_material);
         }
         else
@@ -106,7 +113,7 @@ public class PeopleOcclusion : MonoBehaviour
 
     private bool PeopleOcclusionSupported()
     {
-        return m_humanBodyManager.subsystem != null && m_humanBodyManager.humanDepthTexture != null && m_humanBodyManager.humanStencilTexture != null;
+        return m_humanBodyManager.subsystem != null && m_aROcclusionManager.humanDepthTexture != null && m_aROcclusionManager.humanStencilTexture != null;
     }
 
     private void RefreshCameraFeedTexture()
