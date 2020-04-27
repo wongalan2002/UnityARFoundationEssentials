@@ -99,7 +99,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsFacePose = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsFacePose = arFaceManager.subsystem.SubsystemDescriptor.supportsFacePose;
                 counter++;
             }
             catch
@@ -112,7 +112,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsFaceMeshVerticesAndIndices = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsFaceMeshVerticesAndIndices = arFaceManager.subsystem.SubsystemDescriptor.supportsFaceMeshVerticesAndIndices;
                 counter++;
             }
             catch
@@ -125,7 +125,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsHumanBody2D = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsHumanBody2D = arHumanBodyManager.subsystem.SubsystemDescriptor.supportsHumanBody2D;
                 counter++;
             }
             catch
@@ -138,7 +138,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsHumanBody3D = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsHumanBody3D = arHumanBodyManager.subsystem.SubsystemDescriptor.supportsHumanBody3D;
                 counter++;
             }
             catch
@@ -151,7 +151,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsHumanDepthImage = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsHumanDepthImage = aROcclusionManager.subsystem.SubsystemDescriptor.supportsHumanSegmentationDepthImage;
                 counter++;
             }
             catch
@@ -164,7 +164,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsHumanStencilImage = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsHumanStencilImage = aROcclusionManager.subsystem.SubsystemDescriptor.supportsHumanSegmentationStencilImage;
                 counter++;
             }
             catch
@@ -177,7 +177,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsConfidence = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsConfidence = arPointCloudManager.subsystem.SubsystemDescriptor.supportsConfidence;
                 counter++;
             }
             catch
@@ -190,7 +190,7 @@ public class FeatureSupported : MonoBehaviour
         {
             try
             {
-                supportsFeaturePoints = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                supportsFeaturePoints = arPointCloudManager.subsystem.SubsystemDescriptor.supportsFeaturePoints;
                 counter++;
             }
             catch
