@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 
@@ -19,6 +20,19 @@ public class FeatureSupported : MonoBehaviour
     [SerializeField]
     private ARPointCloudManager arPointCloudManager;
 
+    
+
+    public bool needEyeTracking = false;
+    public bool needFacePose = false;
+    public bool needFaceMeshVerticesAndIndices = false;
+    public bool needHumanBody2D = false;
+    public bool needHumanBody3D = false;
+    public bool needHumanDepthImage = false;
+    public bool needHumanStencilImage = false;
+    public bool needConfidence = false;
+    public bool needFeaturePoints = false;
+
+    public List<bool> requiredList;
 
     bool supportsEyeTracking = false;
     bool supportsFacePose = false;
@@ -32,57 +46,27 @@ public class FeatureSupported : MonoBehaviour
 
     void Start()
     {
-        // Face Support Checks
-        try
-        {
-            supportsEyeTracking = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
-            supportsFacePose = arFaceManager.subsystem.SubsystemDescriptor.supportsFacePose;
-            supportsFaceMeshVerticesAndIndices = arFaceManager.subsystem.SubsystemDescriptor.supportsFaceMeshVerticesAndIndices;
-        }
-        catch
-        {
-            supportsEyeTracking = false;
-            supportsFacePose = false;
-            supportsFaceMeshVerticesAndIndices = false;
-        }
+        if (needEyeTracking) requiredList.Add(needEyeTracking);
+        if (needFacePose) requiredList.Add(needFacePose);
+        if (needFaceMeshVerticesAndIndices) requiredList.Add(needFaceMeshVerticesAndIndices);
+        if (needHumanBody2D) requiredList.Add(needHumanBody2D);
+        if (needHumanBody3D) requiredList.Add(needHumanBody3D);
+        if (needHumanDepthImage) requiredList.Add(needHumanDepthImage);
+        if (needHumanStencilImage) requiredList.Add(needHumanStencilImage);
+        if (needConfidence) requiredList.Add(needConfidence);
+        if (needFeaturePoints) requiredList.Add(needFeaturePoints);
 
-        // Human Body Support Checks
-        try
+        //CheckFeatures();
+        
+        if (CheckFeatures() == requiredList.Count)
         {
-            supportsHumanBody2D = arHumanBodyManager.subsystem.SubsystemDescriptor.supportsHumanBody2D;
-            supportsHumanBody3D = arHumanBodyManager.subsystem.SubsystemDescriptor.supportsHumanBody3D;
+            Debug.Log("Pass all");
         }
-        catch
+        else
         {
-            supportsHumanBody2D = false;
-            supportsHumanBody3D = false;
-        }
+            Debug.Log("Totally required: " + requiredList.Count + " but only " + CheckFeatures() + " supported");
 
-        try
-        {
-            supportsHumanDepthImage = aROcclusionManager.subsystem.SubsystemDescriptor.supportsHumanSegmentationDepthImage;
-            supportsHumanStencilImage = aROcclusionManager.subsystem.SubsystemDescriptor.supportsHumanSegmentationStencilImage;
-        }
-        catch
-        {
-            supportsHumanDepthImage = false;
-            supportsHumanStencilImage = false;
-        }
-
-
-        // Point Cloud Support Checks
-        try
-        {
-            supportsConfidence = arPointCloudManager.subsystem.SubsystemDescriptor.supportsConfidence;
-            supportsFeaturePoints = arPointCloudManager.subsystem.SubsystemDescriptor.supportsFeaturePoints;
-        }
-        catch
-        {
-            supportsConfidence = false;
-            supportsFeaturePoints = false;
-        }
-
-        features.text = $"supportsEyeTracking : {supportsEyeTracking}\n" +
+            features.text = $"supportsEyeTracking : {supportsEyeTracking}\n" +
             $"supportsFacePose : {supportsFacePose}\n" +
             $"supportsFaceMeshVerticesAndIndices : {supportsFaceMeshVerticesAndIndices}\n" +
             $"supportsHumanBody2D : {supportsHumanBody2D}\n" +
@@ -91,7 +75,129 @@ public class FeatureSupported : MonoBehaviour
             $"supportsHumanDepthImage : {supportsHumanStencilImage}\n" +
             $"supportsConfidence : {supportsConfidence}\n" +
             $"supportsFeaturePoints : {supportsFeaturePoints}";
-
+        }
         Debug.Log("features :" + features.text);
+    }
+
+    int CheckFeatures()
+    {
+        int counter = 0;
+        if (needEyeTracking)
+        {
+            try
+            {
+                supportsEyeTracking = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsEyeTracking = false;
+            }
+        }
+
+        if (needFacePose)
+        {
+            try
+            {
+                supportsFacePose = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsFacePose = false;
+            }
+        }
+
+        if (needFaceMeshVerticesAndIndices)
+        {
+            try
+            {
+                supportsFaceMeshVerticesAndIndices = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsFaceMeshVerticesAndIndices = false;
+            }
+        }
+
+        if (needHumanBody2D)
+        {
+            try
+            {
+                supportsHumanBody2D = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsHumanBody2D = false;
+            }
+        }
+
+        if (needHumanBody3D)
+        {
+            try
+            {
+                supportsHumanBody3D = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsHumanBody3D = false;
+            }
+        }
+
+        if (needHumanDepthImage)
+        {
+            try
+            {
+                supportsHumanDepthImage = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsHumanDepthImage = false;
+            }
+        }
+
+        if (needHumanStencilImage)
+        {
+            try
+            {
+                supportsHumanStencilImage = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsHumanStencilImage = false;
+            }
+        }
+
+        if (needConfidence)
+        {
+            try
+            {
+                supportsConfidence = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsConfidence = false;
+            }
+        }
+
+        if (needFeaturePoints)
+        {
+            try
+            {
+                supportsFeaturePoints = arFaceManager.subsystem.SubsystemDescriptor.supportsEyeTracking;
+                counter++;
+            }
+            catch
+            {
+                supportsFeaturePoints = false;
+            }
+        }
+        return counter;
     }
 }
