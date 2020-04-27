@@ -706,15 +706,16 @@ MonoBehaviour:
   arHumanBodyManager: {fileID: 758132665}
   aROcclusionManager: {fileID: 758132667}
   arPointCloudManager: {fileID: 758132664}
-  needEyeTracking: 1
-  needFacePose: 1
-  needFaceMeshVerticesAndIndices: 1
-  needHumanBody2D: 1
+  needEyeTracking: 0
+  needFacePose: 0
+  needFaceMeshVerticesAndIndices: 0
+  needHumanBody2D: 0
   needHumanBody3D: 1
-  needHumanDepthImage: 1
-  needHumanStencilImage: 1
-  needConfidence: 1
-  needFeaturePoints: 1
+  needHumanDepthImage: 0
+  needHumanStencilImage: 0
+  needConfidence: 0
+  needFeaturePoints: 0
+  requiredList: 
 --- !u!114 &758132664
 MonoBehaviour:
   m_ObjectHideFlags: 0
